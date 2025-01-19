@@ -14,6 +14,7 @@ import argparse
 import json
 from pathlib import Path
 
+from gen import generate_secrets
 from loguru import logger
 
 
@@ -31,6 +32,7 @@ def gen_secrets(channels: list[int]) -> bytes:
     """
     # TODO: Update this function to generate any system-wide secrets needed by
     #   your design
+
 
     # Create the secrets object
     # You can change this to generate any secret material
@@ -99,4 +101,6 @@ def main():
 
 
 if __name__ == "__main__":
+    print(generate_secrets([1, 2, 3, 4]))
     main()
+
