@@ -14,14 +14,14 @@ from loguru import logger
 
 
 class _Encoder:
-    """Fallback Encoder class used if ectf25_design isn't installed
+    """Fallback Encoder class used if jag_ectf25_design isn't installed
 
     THIS IS ONLY USED WHEN THE SETUP IS INCORRECT
     """
 
     def __init__(self, secrets: bytes):
         logger.warning(
-            "\nCould not find ectf_encoder.Encoder! Make sure ectf25_design has been"
+            "\nCould not find ectf_encoder.Encoder! Make sure jag_ectf25_design has been"
             " pip-installed to this python with:"
             f"\n\t{sys.executable} -m pip install ./design"
             "\nFrom the root of the repository."
@@ -30,7 +30,7 @@ class _Encoder:
 
     def encode(self, channel: int, frame: bytes, timestamp: int) -> bytes:
         logger.warning(
-            "\nCould not find ectf_encoder.Encoder! Make sure ectf25_design has been"
+            "\nCould not find ectf_encoder.Encoder! Make sure jag_ectf25_design has been"
             " pip-installed to this python with:"
             f"\n\t{sys.executable} -m pip install ./design"
             "\nFrom the root of the repository."
@@ -45,7 +45,7 @@ except ImportError:
     import sys
 
     logger.warning(
-        "\nCould not find ectf_encoder.Encoder! Make sure ectf25_design has been"
+        "\nCould not find ectf_encoder.Encoder! Make sure jag_ectf25_design has been"
         " pip-installed to this python with:"
         f"\n\t{sys.executable} -m pip install ./design"
         "\nFrom the root of the repository."

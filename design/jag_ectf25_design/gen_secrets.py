@@ -20,7 +20,7 @@ from loguru import logger
 def gen_secrets(channels: list[int]) -> bytes:
     """Generate the contents secrets file
 
-    This will be passed to the Encoder, ectf25_design.gen_subscription, and the build
+    This will be passed to the Encoder, jag_ectf25_design.gen_subscription, and the build
     process of the decoder
 
     :param channels: List of channel numbers that will be valid in this deployment.

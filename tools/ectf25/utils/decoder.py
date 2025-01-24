@@ -140,7 +140,7 @@ class DecoderIntf:
         """Subscribe the Decoder to a new subscription
 
         :param subscription: Content of subscription file created by
-            ectf25_design.gen_subscription
+            jag_ectf25_design.gen_subscription
         :raises DecoderError: Error on subscribe failure
         """
         # send subscribe message

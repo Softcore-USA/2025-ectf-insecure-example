@@ -26,7 +26,7 @@ def main():
     parser.add_argument(
         "subscription_file",
         type=argparse.FileType("rb"),
-        help="Path to the subscription file created by ectf25_design.gen_subscription",
+        help="Path to the subscription file created by jag_ectf25_design.gen_subscription",
     )
     parser.add_argument(
         "port",
