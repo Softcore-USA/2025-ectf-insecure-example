@@ -15,6 +15,7 @@ import json
 from pathlib import Path
 import struct
 
+from gen import generate_subscriptions
 from loguru import logger
 
 
@@ -34,16 +35,11 @@ def gen_subscription(
     # TODO: Update this function to provide a Decoder with whatever data it needs to
     #   subscribe to a new channel
 
-    # Load the json of the secrets file
-    secrets = json.loads(secrets)
+    value = generate_subscriptions(secrets, device_id, start, end, channel)
 
-    # You can use secrets generated using `gen_secrets` here like:
-    # secrets["some_secrets"]
-    # Which would return "EXAMPLE" in the reference design.
-    # Please note that the secrets are READ ONLY at this sage!
-
+    print(value)
     # Pack the subscription. This will be sent to the decoder with ectf25.tv.subscribe
-    return struct.pack("<IQQI", device_id, start, end, channel)
+    return value
 
 
 def parse_args():

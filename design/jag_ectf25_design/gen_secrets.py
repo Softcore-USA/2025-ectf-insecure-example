@@ -14,10 +14,11 @@ import argparse
 import json
 from pathlib import Path
 
+from gen import generate_secrets
 from loguru import logger
 
 
-def gen_secrets(channels: list[int]) -> bytes:
+def gen_secrets(channels: list[int], device_ids: int) -> bytes:
     """Generate the contents secrets file
 
     This will be passed to the Encoder, jag_ectf25_design.gen_subscription, and the build
@@ -32,18 +33,11 @@ def gen_secrets(channels: list[int]) -> bytes:
     # TODO: Update this function to generate any system-wide secrets needed by
     #   your design
 
-    # Create the secrets object
-    # You can change this to generate any secret material
-    # The secrets file will never be shared with attackers
-    secrets = {
-        "channels": channels,
-        "some_secrets": "EXAMPLE",
-    }
 
     # NOTE: if you choose to use JSON for your file type, you will not be able to
     # store binary data, and must either use a different file type or encode the
     # binary data to hex, base64, or another type of ASCII-only encoding
-    return json.dumps(secrets).encode()
+    return generate_secrets(channels, device_ids)
 
 
 def parse_args():
@@ -64,6 +58,11 @@ def parse_args():
         help="Path to the secrets file to be created",
     )
     parser.add_argument(
+        "devices",
+        type=int,
+        help="Number of devices to generate",
+    )
+    parser.add_argument(
         "channels",
         nargs="+",
         type=int,
@@ -81,7 +80,7 @@ def main():
     # Parse the command line arguments
     args = parse_args()
 
-    secrets = gen_secrets(args.channels)
+    secrets = gen_secrets(args.channels, args.devices)
 
     # Print the generated secrets for your own debugging
     # Attackers will NOT have access to the output of this, but feel free to remove
