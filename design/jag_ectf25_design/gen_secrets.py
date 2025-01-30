@@ -14,30 +14,9 @@ import argparse
 import json
 from pathlib import Path
 
-from gen import generate_secrets
 from loguru import logger
 
-
-def gen_secrets(channels: list[int], device_ids: int) -> bytes:
-    """Generate the contents secrets file
-
-    This will be passed to the Encoder, jag_ectf25_design.gen_subscription, and the build
-    process of the decoder
-
-    :param channels: List of channel numbers that will be valid in this deployment.
-        Channel 0 is the emergency broadcast, which will always be valid and will
-        NOT be included in this list
-
-    :returns: Contents of the secrets file
-    """
-    # TODO: Update this function to generate any system-wide secrets needed by
-    #   your design
-
-
-    # NOTE: if you choose to use JSON for your file type, you will not be able to
-    # store binary data, and must either use a different file type or encode the
-    # binary data to hex, base64, or another type of ASCII-only encoding
-    return generate_secrets(channels, device_ids)
+from ectf25_design.gen_secrets import gen_secrets
 
 
 def parse_args():
@@ -58,11 +37,6 @@ def parse_args():
         help="Path to the secrets file to be created",
     )
     parser.add_argument(
-        "devices",
-        type=int,
-        help="Number of devices to generate",
-    )
-    parser.add_argument(
         "channels",
         nargs="+",
         type=int,
@@ -80,13 +54,13 @@ def main():
     # Parse the command line arguments
     args = parse_args()
 
-    secrets = gen_secrets(args.channels, args.devices)
+    secrets = gen_secrets(args.channels)
 
     # Print the generated secrets for your own debugging
     # Attackers will NOT have access to the output of this, but feel free to remove
     #
     # NOTE: Printing sensitive data is generally not good security practice
-    logger.debug(f"Generated secrets: {secrets}")
+    #logger.debug(f"Generated secrets: {secrets}")
 
     # Open the file, erroring if the file exists unless the --force arg is provided
     with open(args.secrets_file, "wb" if args.force else "xb") as f:
